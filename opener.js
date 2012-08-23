@@ -9,9 +9,17 @@ function opener(args, options, callback) {
     var command = process.platform === "win32" ? "start" :
                   process.platform === "darwin" ? "open" :
                   "xdg-open";
-                  
+
     if (typeof args === "string") {
         args = [args];
+    }
+
+    if (process.platform === "win32" && args[0].indexOf(" ") !== -1) {
+        // Windows executables whose paths contain spaces need to be quoted.
+        args[0] = '"' + args[0];
+        // But, if you double-quote the first parameter, then `start` it will interpret it as a window title, so you
+        // need to add a dummy window title: http://stackoverflow.com/q/154075/#154090
+        args.unshift('""');
     }
 
     childProcess.exec(command + " " + args.join(" "), options, callback);

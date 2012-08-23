@@ -12,7 +12,6 @@
     "node": true,
     "nonew": true,
     "nomen": true,
-    "quotmark": "double",
     "trailing": true,
     "undef": true,
     "unused": true,
