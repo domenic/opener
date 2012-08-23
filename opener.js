@@ -5,13 +5,28 @@
 var childProcess = require("child_process");
 
 function opener(args, options, callback) {
-    // http://stackoverflow.com/q/1480971/3191
-    var command = process.platform === "win32" ? "start" :
-                  process.platform === "darwin" ? "open" :
-                  "xdg-open";
-                  
     if (typeof args === "string") {
         args = [args];
+    }
+
+    // http://stackoverflow.com/q/1480971/3191
+    var command;
+    switch (process.platform) {
+    case "win32":
+        command = "start";
+        /*
+        Windows command "start" takes the first argument in quotes 
+        as a window title, but not as a file or command.
+
+        http://stackoverflow.com/q/154075/#154090
+        */
+        args.unshift("\"\"");
+        break;
+    case "darwin":
+        command = "open";
+        break;
+    default:
+        command = "xdg-open";
     }
 
     childProcess.exec(command + " " + args.join(" "), options, callback);
