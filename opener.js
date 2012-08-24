@@ -5,7 +5,7 @@
 var childProcess = require("child_process");
 
 function opener(args, options, callback) {
-    // http://stackoverflow.com/q/1480971/3191
+    // http://stackoverflow.com/q/1480971/3191, but see below for Windows.
     var command = process.platform === "win32" ? "cmd" :
                   process.platform === "darwin" ? "open" :
                   "xdg-open";
@@ -15,13 +15,15 @@ function opener(args, options, callback) {
     }
 
     if (process.platform === "win32") {
-        // Windows executables whose paths contain spaces need to be quoted.
-        // But, if you double-quote the first parameter, 
-        // then `start` it will interpret it as a window title, so you
-        // need to add a dummy window title: http://stackoverflow.com/q/154075/#154090
+        // On Windows, we really want to use the "start" command. But, the rules regarding arguments with spaces, and
+        // escaping them with quotes, can get really arcane. So the easiest way to deal with this is to pass off the
+        // responsibility to "cmd /c", which has that logic built in.
+        //
+        // Furthermore, if "cmd /c" double-quoted the first parameter, then "start" will interpret it as a window title,
+        // so we need to add a dummy empty-string window title: http://stackoverflow.com/a/154090/3191
         args = ["/c", "start", '""'].concat(args);
     }
-    
+
     childProcess.execFile(command, args, options, callback);
 }
 
