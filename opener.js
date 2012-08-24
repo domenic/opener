@@ -14,9 +14,13 @@ function opener(args, options, callback) {
         args = [args];
     }
 
-    if (process.platform === "win32" && args[0].indexOf(" ") !== -1) {
-        // Windows executables whose paths contain spaces need to be quoted.
-        args[0] = '"' + args[0];
+    if (process.platform === "win32") {
+         // Windows executables whose paths contain spaces need to be quoted.
+        for (var i = 0, count = args.length; i < count; ++i) {
+            if (args[i].indexOf(" ") !== -1) {
+                args[i] = '"' + args[i] + '"';
+            } 
+        } 
         // But, if you double-quote the first parameter, then `start` it will interpret it as a window title, so you
         // need to add a dummy window title: http://stackoverflow.com/q/154075/#154090
         args.unshift('""');
