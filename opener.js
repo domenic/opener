@@ -6,7 +6,7 @@ var childProcess = require("child_process");
 
 function opener(args, options, callback) {
     // http://stackoverflow.com/q/1480971/3191
-    var command = process.platform === "win32" ? "start" :
+    var command = process.platform === "win32" ? "cmd" :
                   process.platform === "darwin" ? "open" :
                   "xdg-open";
 
@@ -14,15 +14,15 @@ function opener(args, options, callback) {
         args = [args];
     }
 
-    if (process.platform === "win32" && args[0].indexOf(" ") !== -1) {
+    if (process.platform === "win32") {
         // Windows executables whose paths contain spaces need to be quoted.
-        args[0] = '"' + args[0];
-        // But, if you double-quote the first parameter, then `start` it will interpret it as a window title, so you
+        // But, if you double-quote the first parameter, 
+        // then `start` it will interpret it as a window title, so you
         // need to add a dummy window title: http://stackoverflow.com/q/154075/#154090
-        args.unshift('""');
+        args = ["/c", "start", '""'].concat(args);
     }
-
-    childProcess.exec(command + " " + args.join(" "), options, callback);
+    
+    childProcess.execFile(command, args, options, callback);
 }
 
 // Export `opener` for programmatic access.
