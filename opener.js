@@ -14,6 +14,11 @@ function opener(args, options, callback) {
         args = [args];
     }
 
+    if (typeof options === "function") {
+        callback = options;
+        options = {};
+    }
+
     if (process.platform === "win32") {
         // On Windows, we really want to use the "start" command. But, the rules regarding arguments with spaces, and
         // escaping them with quotes, can get really arcane. So the easiest way to deal with this is to pass off the
