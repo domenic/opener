@@ -14,9 +14,9 @@
     "main": "opener.js",
     "bin": "opener.js",
     "scripts": {
-        "lint": "jshint opener.js --show-non-errors"
+        "lint": "jshint opener.js"
     },
     "devDependencies": {
-        "jshint": ">= 0.7.3"
+        "jshint": ">= 0.9.0"
     }
 }
