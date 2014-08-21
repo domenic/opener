@@ -17,6 +17,6 @@
         "lint": "jshint opener.js"
     },
     "devDependencies": {
-        "jshint": ">= 0.9.0"
+        "jshint": "^2.5.4"
     }
 }
