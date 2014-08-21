@@ -2,15 +2,13 @@
     "name": "opener",
     "description": "Opens stuff, like webpages and files and executables, cross-platform",
     "version": "1.3.0",
-    "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenicdenicola.com)",
+    "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenic.me/)",
     "license": "WTFPL",
     "repository": {
         "type": "git",
         "url": "git://github.com/domenic/opener.git"
     },
-    "bugs": {
-        "url": "http://github.com/domenic/opener/issues"
-    },
+    "bugs": "http://github.com/domenic/opener/issues",
     "main": "opener.js",
     "bin": "opener.js",
     "scripts": {
