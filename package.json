@@ -2,19 +2,18 @@
     "name": "opener",
     "description": "Opens stuff, like webpages and files and executables, cross-platform",
     "version": "1.4.0",
-    "author": "Domenic Denicola <domenic@domenicdenicola.com> (http://domenic.me/)",
+    "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
     "license": "WTFPL",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/domenic/opener.git"
-    },
-    "bugs": "http://github.com/domenic/opener/issues",
+    "repository": "domenic/opener",
     "main": "opener.js",
     "bin": "opener.js",
+    "files": [
+        "opener.js"
+    ],
     "scripts": {
         "lint": "jshint opener.js"
     },
     "devDependencies": {
-        "jshint": "^2.5.4"
+        "jshint": "^2.6.3"
     }
 }
