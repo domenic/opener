@@ -40,7 +40,7 @@ function opener(args, options, callback) {
         args = args.map(function(value) {
             return value.replace(/&/g, '^&');
         });
-        args = ["/c", "start", '""'].concat(args);
+        args = ["/c", "start", "/MIN", '""'].concat(args);
     }
 
     return childProcess.execFile(command, args, options, callback);
