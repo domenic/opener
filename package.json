@@ -6,9 +6,10 @@
     "license": "(WTFPL OR MIT)",
     "repository": "domenic/opener",
     "main": "opener.js",
-    "bin": "opener.js",
+    "bin": "bin.js",
     "files": [
-        "opener.js"
+        "opener.js",
+        "bin.js"
     ],
     "scripts": {
         "lint": "jshint opener.js"
