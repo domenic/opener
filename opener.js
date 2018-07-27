@@ -3,11 +3,21 @@
 "use strict";
 
 var childProcess = require("child_process");
+var os = require("os");
 
 function opener(args, options, callback) {
+    var platform = process.platform;
+
+    // Attempt to detect Windows Subystem for Linux (WSL). WSL  itself as Linux (which works in most cases), but in
+    // this specific case we need to treat it as actually being Windows. The "Windows-way" of opening things through
+    // cmd.exe works just fine here, whereas using xdg-open does not, since there is no X Windows in WSL.
+    if (platform === "linux" && os.release().indexOf("Microsoft") !== -1) {
+        platform = "win32";
+    }
+
     // http://stackoverflow.com/q/1480971/3191, but see below for Windows.
     var command;
-    switch (process.platform) {
+    switch (platform) {
         case "win32": {
             command = "cmd";
             break;
@@ -32,7 +42,7 @@ function opener(args, options, callback) {
     }
 
     if (options && typeof options === "object" && options.command) {
-        if (process.platform === "win32") {
+        if (platform === "win32") {
             // *always* use cmd on windows
             args = [options.command].concat(args);
         } else {
@@ -40,7 +50,7 @@ function opener(args, options, callback) {
         }
     }
 
-    if (process.platform === "win32") {
+    if (platform === "win32") {
         // On Windows, we really want to use the "start" command. But, the rules regarding arguments with spaces, and
         // escaping them with quotes, can get really arcane. So the easiest way to deal with this is to pass off the
         // responsibility to "cmd /c", which has that logic built in.
