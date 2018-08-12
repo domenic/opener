@@ -5,13 +5,14 @@
     "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
     "license": "(WTFPL OR MIT)",
     "repository": "domenic/opener",
-    "main": "opener.js",
-    "bin": "opener.js",
+    "main": "lib/opener.js",
+    "bin": "bin/opener-bin.js",
     "files": [
-        "opener.js"
+        "lib/",
+        "bin/"
     ],
     "scripts": {
-        "lint": "eslint opener.js"
+        "lint": "eslint ."
     },
     "devDependencies": {
         "eslint": "^5.3.0"
