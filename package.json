@@ -11,9 +11,9 @@
         "opener.js"
     ],
     "scripts": {
-        "lint": "jshint opener.js"
+        "lint": "eslint opener.js"
     },
     "devDependencies": {
-        "jshint": "^2.6.3"
+        "eslint": "^5.3.0"
     }
 }

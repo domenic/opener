@@ -6,9 +6,21 @@ var childProcess = require("child_process");
 
 function opener(args, options, callback) {
     // http://stackoverflow.com/q/1480971/3191, but see below for Windows.
-    var command = process.platform === "win32" ? "cmd" :
-                  process.platform === "darwin" ? "open" :
-                  "xdg-open";
+    var command;
+    switch (process.platform) {
+        case "win32": {
+            command = "cmd";
+            break;
+        }
+        case "darwin": {
+            command = "open";
+            break;
+        }
+        default: {
+            command = "xdg-open";
+            break;
+        }
+    }
 
     if (typeof args === "string") {
         args = [args];
@@ -37,10 +49,10 @@ function opener(args, options, callback) {
         // so we need to add a dummy empty-string window title: http://stackoverflow.com/a/154090/3191
         //
         // Additionally, on Windows ampersand needs to be escaped when passed to "start"
-        args = args.map(function(value) {
-            return value.replace(/&/g, '^&');
+        args = args.map(function (value) {
+            return value.replace(/&/g, "^&");
         });
-        args = ["/c", "start", '""'].concat(args);
+        args = ["/c", "start", "\"\""].concat(args);
     }
 
     return childProcess.execFile(command, args, options, callback);
